@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { CommandArgument } from '@models/command.model';
+import { CommandArgument } from '../../src/models/command.model';
 import { setCommands } from '../../src/command/commands';
 import validateArgument from '../../src/argument/validate-argument';
 import commands from '../utils/commands';
