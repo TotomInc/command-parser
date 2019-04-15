@@ -3,7 +3,10 @@
   "description": "A modulable terminal command-parser, originally created for skid-inc incremental-game.",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "pretty": "prettier --write \"{src,test}/**/*.ts\"",
     "serve": "parcel serve -p 8080 public/index.html",
     "test": "ava -v -s",

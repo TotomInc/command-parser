@@ -1,17 +1,19 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "target": "es5",
     "jsx": "preserve",
+    "declaration": true,
     "esModuleInterop": true,
     "sourceMap": true,
-    "allowJs": true,
     "strict": true,
     "lib": [
       "es6",
       "dom"
     ],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "outDir": "./dist"
   },
-  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
