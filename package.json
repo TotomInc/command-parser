@@ -7,7 +7,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "yarn build",
     "pretty": "prettier --write \"{src,test}/**/*.ts\"",
+    "release": "yarn pretty && npm publish --access public",
     "serve": "parcel serve -p 8080 public/index.html",
     "test": "ava -v -s",
     "test:watch": "ava -v -s -w"
