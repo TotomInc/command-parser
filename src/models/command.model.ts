@@ -1,7 +1,7 @@
 export interface Command {
   /** Name of the command */
   name: string;
-  /** Aliases of the command instead of calling the command by its name */
+  /** Description of the command (i.e.: can be displayed in the help command) */
   description: string;
   /** If the command require a value */
   requireValue: boolean;
