@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/command-parser
+    docker:
+      - image: circleci/node:lts
+
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn package cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: test
+          command: yarn test
