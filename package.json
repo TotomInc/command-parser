@@ -11,12 +11,13 @@
     "pretty": "prettier --write \"{src,test}/**/*.ts\"",
     "release": "yarn pretty && npm publish --access public",
     "serve": "parcel serve -p 8080 public/index.html",
-    "test": "ava -v -s",
+    "test": "nyc ava -v -s",
     "test:watch": "ava -v -s -w"
   },
   "devDependencies": {
     "@types/node": "^11.13.2",
     "ava": "^1.4.1",
+    "nyc": "^13.3.0",
     "parcel": "^1.12.3",
     "prettier": "^1.16.4",
     "ts-node": "^8.0.3",
@@ -34,5 +35,29 @@
       "test/**/*.ts",
       "!test/utils/**/*"
     ]
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules/**/*",
+      "**/*.d.ts",
+      "src/index.ts",
+      "src/models/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "html",
+      "text"
+    ],
+    "sourceMap": true,
+    "instrument": true,
+    "all": true
   }
 }
