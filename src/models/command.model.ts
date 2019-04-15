@@ -18,8 +18,6 @@ export interface Command {
    * validator function.
    */
   validation?: (value: string) => boolean;
-  /** Condition to unlock the command (unlocked by default) */
-  unlock?: (...args: any) => boolean;
 }
 
 export interface CommandArgument {
