@@ -15,10 +15,10 @@ jobs:
           name: Install dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
-          name: Save Yarn Package Cache
+          name: Save Yarn package cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - run:
-          name: test
+          name: Run tests
           command: yarn test
