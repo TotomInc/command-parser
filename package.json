@@ -1,0 +1,35 @@
+{
+  "name": "@totominc/command-parser",
+  "description": "A modulable terminal command-parser, originally created for skid-inc incremental-game.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "pretty": "prettier --write \"{src,test}/**/*.ts\"",
+    "serve": "parcel serve -p 8080 public/index.html",
+    "test": "ava -v -s",
+    "test:watch": "ava -v -s -w"
+  },
+  "dependencies": {
+    "typescript": "^3.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^11.13.2",
+    "ava": "^1.4.1",
+    "parcel": "^1.12.3",
+    "prettier": "^1.16.4",
+    "ts-node": "^8.0.3"
+  },
+  "ava": {
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register/transpile-only"
+    ],
+    "files": [
+      "test/**/*.ts",
+      "!test/utils/**/*"
+    ]
+  }
+}
