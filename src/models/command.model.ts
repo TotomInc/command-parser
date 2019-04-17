@@ -1,4 +1,9 @@
 export interface Command {
+  /**
+   * Allow extra properties, please note that extra properties are not
+   * supported by the parser.
+   */
+  [key: string]: any;
   /** Name of the command */
   name: string;
   /** Description of the command (i.e.: can be displayed in the help command) */
