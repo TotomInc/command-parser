@@ -1,13 +1,8 @@
 import test from 'ava';
 
 import { CommandArgument } from '../../src/models/command.model';
-import { setCommands } from '../../src/command/commands';
 import autocompleteArgumentValue from '../../src/argument/autocomplete-argument-value';
 import commands from '../utils/commands';
-
-test.before((t) => {
-  setCommands(commands);
-});
 
 test('autocomplete a predictable argument value with a single possibility', async (t) => {
   const argument: CommandArgument = {

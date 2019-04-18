@@ -1,13 +1,7 @@
 import test from 'ava';
 
 import { CommandArgument } from '../../src/models/command.model';
-import { setCommands } from '../../src/command/commands';
 import validateArgument from '../../src/argument/validate-argument';
-import commands from '../utils/commands';
-
-test.before((t) => {
-  setCommands(commands);
-});
 
 test('validate an argument value with pre-defined/predictable possibilities', async (t) => {
   const argument: CommandArgument = {
