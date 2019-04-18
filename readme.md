@@ -67,13 +67,13 @@ arguments and validity of the input.
 
 *Returned:*
 
-| Return     | Type            | Description                                            |
-| ---------- | --------------- | ------------------------------------------------------ |
-| command    | `C | undefined` | return the command found (or `undefined` if not found) |
-| parsedArgs | `ParsedArg[]`   | array of parsed arguments                              |
-| valid      | `boolean`       | validity of the user-input                             |
+| Return     | Type               | Description                                            |
+| ---------- | ------------------ | ------------------------------------------------------ |
+| command    | `C` or `undefined` | return the command found (or `undefined` if not found) |
+| parsedArgs | `ParsedArg[]`      | array of parsed arguments                              |
+| valid      | `boolean`          | validity of the user-input                             |
 
-#### `autocompleteArgumentValue(argument: string, value: string): string[]`
+#### `autocompleteArgumentValue(argument, value): string[]`
 
 Based on the `possibilities` of the argument, try to find possibilities for
 the value to autocomplete.
@@ -169,3 +169,11 @@ interface ParsedArgument {
   errors?: string;
 }
 ```
+
+## Contributing
+
+Contributions are welcome, make sure to add/edit tests when you are contributing.
+
+## License
+
+See the [MIT License](https://github.com/totominc/command-parser/blob/master/LICENSE) file.
