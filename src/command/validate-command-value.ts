@@ -16,9 +16,7 @@ import { Command } from '../models/command.model';
  */
 function validateCommandValue(command: Command, value: string) {
   const possibilities =
-    typeof command.possibilities === 'function'
-      ? command.possibilities()
-      : command.possibilities || [];
+    typeof command.possibilities === 'function' ? command.possibilities() : command.possibilities || [];
 
   let isValid = !command.requireValue;
 

@@ -16,9 +16,7 @@ import { CommandArgument } from '../models/command.model';
  */
 function validateArgument(argument: CommandArgument, value: string): boolean {
   const possibilities =
-    typeof argument.possibilities === 'function'
-      ? argument.possibilities()
-      : argument.possibilities || [];
+    typeof argument.possibilities === 'function' ? argument.possibilities() : argument.possibilities || [];
 
   let isValid = !argument.requireValue;
 

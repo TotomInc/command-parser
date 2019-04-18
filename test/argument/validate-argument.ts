@@ -78,10 +78,7 @@ test('invalidate an argument value after using both a validator function and pos
     validation: (value) => value.indexOf('.ssh/key-test') > -1,
   };
 
-  const argumentValueValid = validateArgument(
-    argument,
-    '~/.ssh/home-raspberry',
-  );
+  const argumentValueValid = validateArgument(argument, '~/.ssh/home-raspberry');
 
   t.false(argumentValueValid);
 });

@@ -7,10 +7,7 @@ import { Command } from '../models/command.model';
  * @param value input containing the name of the command
  * @param commands an array of commands with a type that extends `Command`
  */
-function findCommand<C extends Command>(
-  value: string,
-  commands: C[],
-): C | undefined {
+function findCommand<C extends Command>(value: string, commands: C[]): C | undefined {
   return commands.find((command) => command.name === value);
 }
 

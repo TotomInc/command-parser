@@ -7,10 +7,7 @@ import { Command, CommandArgument } from '../models/command.model';
  * @param command original command to find argument
  * @param value name or value of a potential argument
  */
-function findArgument(
-  command: Command,
-  value: string,
-): CommandArgument | undefined {
+function findArgument(command: Command, value: string): CommandArgument | undefined {
   let argument: CommandArgument | undefined;
 
   if (command.arguments) {
