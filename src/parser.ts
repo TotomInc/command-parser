@@ -1,4 +1,4 @@
-import { ParsedArgument } from './models/command.model';
+import { ParsedArgument, Command } from './models/command.model';
 import normalize from './normalize';
 import findCommand from './command/find-command';
 import findArgument from './argument/find-argument';
@@ -8,14 +8,21 @@ import validateCommandValue from './command/validate-command-value';
 /**
  * Parse user-input, find the command and extract arguments. Test the validity
  * of arguments and of the command value. Return the command found, parsed
- * arguments and valid.
+ * arguments and validity of the input.
  *
  * @param input user-input terminal command
+ * @param commands an array of commands with a type that extends `Command`
  */
-function parse(input: string) {
+function parse<C extends Command>(
+  input: string,
+  commands: C[],
+): {
+  command: C | undefined;
+  parsedArgs: ParsedArgument[];
+  valid: boolean;
+} {
   const splitted = normalize(input).split(' ');
-
-  const command = findCommand(splitted[0]);
+  const command = findCommand<C>(splitted[0], commands);
   const args = splitted.splice(1, splitted.length);
 
   const parsedArgs: ParsedArgument[] = [];
