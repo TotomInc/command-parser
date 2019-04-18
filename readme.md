@@ -1,6 +1,9 @@
 <!-- markdownlint-disable MD029 -->
 # @totominc/command-parser
 
+[![CircleCI](https://circleci.com/gh/TotomInc/command-parser/tree/master.svg?style=shield)](https://circleci.com/gh/TotomInc/command-parser/tree/master)
+[![codecov](https://codecov.io/gh/TotomInc/command-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/TotomInc/command-parser)
+
 > A modulable UNIX terminal command-parser, originally created for SkidInc incremental-game.
 
 ## Usage
