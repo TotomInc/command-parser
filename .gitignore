@@ -1,8 +1,11 @@
 .DS_Store
-.nyc_output
 node_modules
 dist
 cache
+
+# code coverage directories and files
+*.lcov
+.nyc_output
 coverage
 
 # local env files

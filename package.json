@@ -10,8 +10,9 @@
     "prepublishOnly": "yarn build",
     "pretty": "prettier --write \"{src,test}/**/*.ts\"",
     "release": "yarn pretty && npm publish --access public",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "serve": "parcel serve -p 8080 public/index.html",
-    "test": "nyc ava -v -s",
+    "test": "nyc ava -v -s && yarn report-coverage",
     "test:watch": "ava -v -s -w"
   },
   "devDependencies": {
