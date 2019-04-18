@@ -15,91 +15,79 @@ yarn add @totominc/command-parser
 
 2. import in your code, see [the API](#API) for exported functions
 
-```javascript
-import parse, { setCommands } from '@totominc/command-parser';
+```typescript
+import parse from '@totominc/command-parser';
 
-// initialize the commands of the `command-parser` module, returns an array of
-// the commands initialized.
-const commands = setCommands({
-    name: 'ssh',
-    description: 'connect to another server which supports the SSH protocol',
-    requireValue: true,
-    validation: (value) => value.indexOf('@') > -1,
-    arguments: [
-      {
-        name: '--identity_file',
-        alias: '-i',
-        requireValue: true,
-        validation: (value) => value.indexOf('.ssh') > -1,
-      },
-    ],
-  });
+// your array of commands which is needed everytime you want to parse an input.
+const commands: Command[] = [{
+  name: 'ssh',
+  description: 'connect to another server which supports the SSH protocol',
+  requireValue: true,
+  validation: (value) => value.indexOf('@') > -1,
+  arguments: [
+    {
+      name: '--identity_file',
+      alias: '-i',
+      requireValue: true,
+      validation: (value) => value.indexOf('.ssh') > -1,
+    },
+  ],
+}];
 
 // parse a user-input command and verify if it's a valid command with valid
-// arguments against the commands initialized below.
-const { command, parsedArgs, valid } = parse('ssh -i ~/.ssh/rpi pi@home');
+// arguments against the commands argument parameter.
+const { command, parsedArgs, valid } = parse<Command>(
+  'ssh -i ~/.ssh/rpi pi@home',
+  commands,
+);
 
 console.log(command, parsedArgs, valid);
 ```
 
 ## API
 
-### Exported functions
+### Functions
 
-#### parse(input: string): { command: Command, parsedArgs: ParsedArg[], valid: boolean }
+#### `parser<C>(input, commands): { command, parsedArgs, valid }`
 
 Parse user-input, find the command and extract arguments. Test the validity
 of arguments and of the command value. Return the command found, parsed
-arguments and validity of the user-input.
+arguments and validity of the input.
 
-> Default export of the module, can be imported this way `import awesomeParser from '@totominc/command-parser';`.
+> This is the default export of the module, the parser function can be imported by doing this `import awesomeParser from '@totominc/command-parser';`.
 
 **Kind**: global function  
 
-| Param | Description                 |
-| ----- | --------------------------- |
-| input | user-input terminal command |
+*Parameters:*
 
-#### autocompleteArgumentValue(argument: string, value: string): string[]
+| Param    | Type     | Description                                             |
+| -------- | -------- | ------------------------------------------------------- |
+| input    | `string` | user-input terminal command                             |
+| commands | `any[]`  | an array of commands with a type that extends `Command` |
+
+*Returned:*
+
+| Return     | Type            | Description                                            |
+| ---------- | --------------- | ------------------------------------------------------ |
+| command    | `C | undefined` | return the command found (or `undefined` if not found) |
+| parsedArgs | `ParsedArg[]`   | array of parsed arguments                              |
+| valid      | `boolean`       | validity of the user-input                             |
+
+#### `autocompleteArgumentValue(argument: string, value: string): string[]`
 
 Based on the `possibilities` of the argument, try to find possibilities for
 the value to autocomplete.
 
-> Used for an autocomplete feature of your terminal, where only *matching* arguments/values will be returned. This can be customized more with the `possibilities` function/array of the command.
+> Used for an autocomplete feature of your terminal, where only *matching* arguments/values will be returned. This can be customized with the `possibilities` function/array of the command.
 
 **Kind**: global function  
 
-| Param    | Description                                 |
-| -------- | ------------------------------------------- |
-| argument | argument of a command                       |
-| value    | typed value of an argument, to autocomplete |
+*Parameters:*
 
-#### getCommands(): Command[]
-
-Get the `commands` value which is the local variable.
-
-**Kind**: global function  
-
-#### setCommands(newCommands: Command[]): Command[]
-
-Replace the current state of `commands` with a new array of `Command`.
-Return the array of commands.
-
-**Kind**: global function  
-
-| Param       | Description           |
-| ----------- | --------------------- |
-| newCommands | an array of `Command` |
-
-#### findCommand(value: string): Command | undefined
-
-Try to find the command from user-input command-name.
-
-**Kind**: global function  
-
-| Param | Description                              |
-| ----- | ---------------------------------------- |
-| value | input containing the name of the command |
+| Param    | Type     | Description                                 |
+| -------- | -------- | ------------------------------------------- |
+| argument | `string` | argument of a command                       |
+| value    | `string` | typed value of an argument, to autocomplete |
 
 ### Models
 
