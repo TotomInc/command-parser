@@ -3,8 +3,17 @@
   "description": "A modulable terminal command-parser, originally created for skid-inc incremental-game.",
   "version": "0.2.0",
   "license": "MIT",
+  "author": {
+    "name": "Thomas Cazade",
+    "email": "cazade.thomas@gmail.com",
+    "url": "https://totominc.dev"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/totominc/command-parser"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "prepublishOnly": "yarn build",
