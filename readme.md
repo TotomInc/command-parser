@@ -61,14 +61,14 @@ arguments and validity of the input.
 
 **Kind**: global function  
 
-*Parameters:*
+**Parameters**:
 
 | Param    | Type     | Description                                             |
 | -------- | -------- | ------------------------------------------------------- |
 | input    | `string` | user-input terminal command                             |
 | commands | `any[]`  | an array of commands with a type that extends `Command` |
 
-*Returned:*
+**Returned**:
 
 | Return     | Type               | Description                                            |
 | ---------- | ------------------ | ------------------------------------------------------ |
@@ -85,12 +85,28 @@ the value to autocomplete.
 
 **Kind**: global function  
 
-*Parameters:*
+**Parameters**:
 
 | Param    | Type     | Description                                 |
 | -------- | -------- | ------------------------------------------- |
 | argument | `string` | argument of a command                       |
 | value    | `string` | typed value of an argument, to autocomplete |
+
+#### `findCommand<C>(value, commands): C | Command`
+
+Try to find the command from user-input command-name. You can use an
+extended command interface by passing it as a generic.
+
+> It can be used with the `autocompleteArgumentValue` since you need to pass a recognized `Command` object.
+
+**Kind**: global function  
+
+**Parameters**:
+
+| Param    | Type        | Description                                             |
+| -------- | ----------- | ------------------------------------------------------- |
+| value    | `string`    | input containing the name of the command                |
+| commands | `Command[]` | an array of commands with a type that extends `Command` |
 
 ### Models
 
