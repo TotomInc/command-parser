@@ -1,7 +1,7 @@
 {
   "name": "@totominc/command-parser",
   "description": "A modulable terminal command-parser, originally created for skid-inc incremental-game.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "author": {
     "name": "Thomas Cazade",
