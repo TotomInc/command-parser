@@ -1,6 +1,6 @@
-import parse, { setCommands } from '../src';
+import parse, { Command } from '../src';
 
-setCommands([
+const commands: Command[] = [
   {
     name: 'ssh',
     description: 'connect to another server which supports the SSH protocol',
@@ -26,8 +26,8 @@ setCommands([
       },
     ],
   },
-]);
+];
 
-const { command, parsedArgs, valid } = parse('ssh -i ~/.ssh/key user@rpi');
+const { command, parsedArgs, valid } = parse('ssh -i ~/.ssh/key user@rpi', commands);
 
 console.log(command, parsedArgs, valid);
