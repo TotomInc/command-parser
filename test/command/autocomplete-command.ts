@@ -15,7 +15,7 @@ test('autocomplete an existing command', async (t) => {
 test('returns multiple command names matching the input', async (t) => {
   const suggestions = autocompleteCommandName('s', commands);
 
-  t.deepEqual(suggestions, ['ssh', 'say']);
+  t.deepEqual(suggestions, ['ssh', 'say', 'syslog']);
 });
 
 test('unable to find matching commands', async (t) => {
@@ -26,9 +26,9 @@ test('unable to find matching commands', async (t) => {
 });
 
 test('autocomplete a command value', async (t) => {
-  const suggestions = autocompleteCommandValue('hel', commands[1]);
+  const suggestions = autocompleteCommandValue('/hom', commands[2]);
 
-  t.deepEqual(suggestions, ['hello']);
+  t.deepEqual(suggestions, ['/home/admin/system.log']);
 });
 
 test('returns multiple command values matching the input', async (t) => {

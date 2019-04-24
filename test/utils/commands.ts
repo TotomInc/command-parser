@@ -1,5 +1,8 @@
 import { Command } from '../../src/models/command.model';
 
+// List of directories to use for `syslog` command
+const directories = ['~', '/home/admin'];
+
 const commands: Command[] = [
   {
     name: 'ssh',
@@ -31,6 +34,12 @@ const commands: Command[] = [
     description: 'convert text to audible speech',
     requireValue: true,
     possibilities: ['hello', 'world', 'word'],
+  },
+  {
+    name: 'syslog',
+    description: 'output the log of the system since it have been startup',
+    requireValue: true,
+    possibilities: () => directories.map((directory) => `${directory}/system.log`),
   },
 ];
 
