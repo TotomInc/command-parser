@@ -26,6 +26,12 @@ const commands: Command[] = [
       },
     ],
   },
+  {
+    name: 'say',
+    description: 'convert text to audible speech',
+    requireValue: true,
+    possibilities: ['hello', 'world', 'word'],
+  },
 ];
 
 export default commands;
