@@ -41,6 +41,11 @@ const commands: Command[] = [
     requireValue: true,
     possibilities: () => directories.map((directory) => `${directory}/system.log`),
   },
+  {
+    name: 'softwareupdate',
+    description: 'update all development softwares',
+    requireValue: false,
+  },
 ];
 
 export default commands;
