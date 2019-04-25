@@ -23,13 +23,9 @@ export function autocompleteArgumentName(command: Command, value: string): strin
  */
 export function autocompleteArgumentValue(argument: CommandArgument, value: string): string[] {
   const possibilities =
-    typeof argument.possibilities === 'function'
-      ? argument.possibilities()
-      : argument.possibilities || [];
+    typeof argument.possibilities === 'function' ? argument.possibilities() : argument.possibilities || [];
 
-  const autocompletePossibilities = possibilities.filter((possibility) =>
-    possibility.startsWith(value),
-  );
+  const autocompletePossibilities = possibilities.filter((possibility) => possibility.startsWith(value));
 
   return autocompletePossibilities;
 }

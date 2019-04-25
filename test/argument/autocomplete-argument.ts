@@ -2,10 +2,7 @@ import test from 'ava';
 
 import commands from '../utils/commands';
 import { CommandArgument } from '../../src/models/command.model';
-import {
-  autocompleteArgumentValue,
-  autocompleteArgumentName,
-} from '../../src/argument/autocomplete-argument';
+import { autocompleteArgumentValue, autocompleteArgumentName } from '../../src/argument/autocomplete-argument';
 
 test('autocomplete a predictable argument value with a single possibility', async (t) => {
   const argument: CommandArgument = {
@@ -25,12 +22,12 @@ test('autocomplete a predictable argument value with multiple possiblities', asy
     name: '--login_name',
     alias: '-l',
     requireValue: true,
-    possibilities: ['root', 'root2', 'user'],
+    possibilities: () => ['root', 'rpi', 'ADMIN'].map((user) => user.toLowerCase()),
   };
 
-  const autocompletePossibilities = autocompleteArgumentValue(argument, 'ro');
+  const autocompletePossibilities = autocompleteArgumentValue(argument, 'r');
 
-  t.deepEqual(autocompletePossibilities, ['root', 'root2']);
+  t.deepEqual(autocompletePossibilities, ['root', 'rpi']);
 });
 
 test("can't find values to autocomplete", async (t) => {
