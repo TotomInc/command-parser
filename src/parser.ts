@@ -34,30 +34,47 @@ function parse<C extends Command>(
 
     for (let i = 0; i < args.length; i += 1) {
       const arg = args[i];
-      const parsedArg = findArgument(command, arg);
 
-      if (parsedArg) {
-        const nextArgValue = args[i + 1];
-        const nextArgValid = validateArgument(parsedArg, nextArgValue);
+      // Try to detect an argument (and its value if it have one)
+      if (arg.startsWith('-')) {
+        const parsedArg = findArgument(command, arg);
 
-        parsedArgs.push({
-          type: 'ARG_NAME',
-          reflect: parsedArg,
-          value: arg,
-          isValid: true,
-        });
-
-        if (parsedArg.requireValue) {
+        // If the argument have been found
+        if (parsedArg) {
           parsedArgs.push({
-            type: 'ARG_VALUE',
+            type: 'ARG_NAME',
             reflect: parsedArg,
-            value: nextArgValue,
-            isValid: nextArgValid,
+            value: arg,
+            isValid: true,
           });
 
-          i = i + 1;
+          // If the parsed argument require a value, make sure the value is
+          // valid (and increase our loop index)
+          if (parsedArg.requireValue) {
+            const nextArgValue = args[i + 1];
+            const nextArgValid = validateArgument(parsedArg, nextArgValue);
+
+            parsedArgs.push({
+              type: 'ARG_VALUE',
+              reflect: parsedArg,
+              value: nextArgValue,
+              isValid: nextArgValid,
+            });
+
+            i = i + 1;
+          }
         }
-      } else {
+        // Unable to find a valid argument name
+        else {
+          parsedArgs.push({
+            type: 'ARG_NAME',
+            value: arg,
+            isValid: false,
+          });
+        }
+      }
+      // If not an argument, fallback on the command value and end the loop
+      else {
         const commandValueValid = validateCommandValue(command, arg);
 
         parsedArgs.push({
@@ -68,6 +85,7 @@ function parse<C extends Command>(
         });
 
         valid = commandValueValid;
+        i = args.length;
       }
     }
   }
