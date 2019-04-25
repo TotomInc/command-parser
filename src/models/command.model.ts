@@ -60,8 +60,11 @@ export interface ParsedArgument {
    * - `ARG_VALUE` is the value of an argument found by its `ARG_NAME`.
    */
   type: 'CMD_VALUE' | 'ARG_NAME' | 'ARG_VALUE';
-  /** Reflect the original `Command` or `CommandArgument` */
-  reflect: Command | CommandArgument;
+  /**
+   * Reflect the original `Command` or `CommandArgument`, can be undefined when
+   * not able to recognize a command or argument being typed.
+   */
+  reflect?: Command | CommandArgument;
   /** Original value (from the input) of the argument */
   value: string;
   /** If the argument value is valid and matches */
