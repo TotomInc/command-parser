@@ -43,6 +43,18 @@ test("can't find values to autocomplete", async (t) => {
   t.deepEqual(autocompletePossibilities, []);
 });
 
+test("can't autocomplete an argument value that doesn't have possibilities (empty array)", async (t) => {
+  const argument: CommandArgument = {
+    name: '--force',
+    alias: '-f',
+    requireValue: false,
+  };
+
+  const suggestions = autocompleteArgumentValue(argument, 'test');
+
+  t.deepEqual(suggestions, []);
+});
+
 test('autocomplete an argument name', async (t) => {
   const suggestions = autocompleteArgumentName(commands[0], '--i');
 
@@ -51,6 +63,12 @@ test('autocomplete an argument name', async (t) => {
 
 test('unable to find a matching argument name', async (t) => {
   const suggestions = autocompleteArgumentName(commands[0], '--hello');
+
+  t.deepEqual(suggestions, []);
+});
+
+test("can't autocomplete a command that doesn't have arguments (empty array)", async (t) => {
+  const suggestions = autocompleteArgumentName(commands[1], '-');
 
   t.deepEqual(suggestions, []);
 });

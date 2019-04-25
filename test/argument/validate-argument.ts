@@ -16,12 +16,12 @@ test('validate an argument value with pre-defined/predictable possibilities', as
   t.true(argumentValueValid);
 });
 
-test('invalidate an argument value with pre-defined/predictable possibilities', async (t) => {
+test('invalidate an argument value with pre-defined/predictable possibilities from a function', async (t) => {
   const argument: CommandArgument = {
     name: '--identity_file',
     alias: '-i',
     requireValue: true,
-    possibilities: ['~/.ssh/test', '~/.ssh/hello', '~/.ssh/key-test'],
+    possibilities: () => ['test', 'hello', 'key-test'].map((filename) => `~/.ssh/${filename}`),
   };
 
   const argumentValueValid = validateArgument(argument, '~/key-test');
