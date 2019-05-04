@@ -5,6 +5,10 @@ import normalize from './normalize';
 import parse from './parser';
 
 /**
+ * Autocomplete a user-input based on the array of `Command` passed.
+ * Automatically determinate if the value to autocomplete is an argument or a
+ * command name/value.
+ *
  * @param input user-input from the terminal
  * @param commands an array of commands with a type that extends `Command`
  * @returns an array of autocomplete possibilities
