@@ -1,3 +1,10 @@
 .prettierrc.js
 tsconfig.json
 src
+test
+public
+.cache
+.circleci
+.nyc_output
+coverage
+*.lcov
