@@ -7,9 +7,7 @@ import { Command } from '../models/command.model';
  * @param commands an array of commands with a type that extends `Command`
  */
 export function autocompleteCommandName(name: string, commands: Command[]): string[] {
-  const potentialCommands = commands
-    .filter((command) => command.name.startsWith(name))
-    .map((command) => command.name);
+  const potentialCommands = commands.filter((command) => command.name.startsWith(name)).map((command) => command.name);
 
   return potentialCommands;
 }
@@ -23,9 +21,7 @@ export function autocompleteCommandName(name: string, commands: Command[]): stri
  */
 export function autocompleteCommandValue(value: string, command: Command): string[] {
   const possibilities =
-    typeof command.possibilities === 'function'
-      ? command.possibilities()
-      : command.possibilities || [];
+    typeof command.possibilities === 'function' ? command.possibilities() : command.possibilities || [];
 
   const suggestions = possibilities.filter((possibility) => possibility.startsWith(value));
 
