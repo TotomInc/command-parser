@@ -1,4 +1,4 @@
-import parse, { Command } from '../src';
+import parse, { Command, autocomplete } from '../src';
 
 const commands: Command[] = [
   {
@@ -31,3 +31,12 @@ const commands: Command[] = [
 const { command, parsedArgs, valid } = parse('ssh -i ~/.ssh/key user@rpi', commands);
 
 console.log(command, parsedArgs, valid);
+
+const suggestions = autocomplete('s', commands);
+
+console.log('autocomplete suggestion(s)', suggestions);
+
+// expose our local variables to the global window object
+window['commands'] = commands;
+window['parse'] = parse;
+window['autocomplete'] = autocomplete;
