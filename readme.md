@@ -76,28 +76,27 @@ arguments and validity of the input.
 | parsedArgs | `ParsedArg[]`      | array of parsed arguments                              |
 | valid      | `boolean`          | validity of the user-input                             |
 
-#### `autocompleteArgumentValue(argument, value): string[]`
+#### `autocomplete<C>(input, commands): string[]`
 
-Based on the `possibilities` of the argument, try to find possibilities for
-the value to autocomplete.
+Autocomplete a user-input based on the array of `Command` passed.
+Automatically determinate if the value to autocomplete is an argument or a
+command name/value.
 
-> Used for an autocomplete feature of your terminal, where only *matching* arguments/values will be returned. This can be customized with the `possibilities` function/array of the command.
+> This function is used when you want to dynamically autocomplete a user-input, like in a shell. i.e.: `cat ~/.zsh` will show multiple files (`.zshrc`, `.zsh_history`).
 
-**Kind**: global function  
+**Kind**: global function
 
 **Parameters**:
 
-| Param    | Type     | Description                                 |
-| -------- | -------- | ------------------------------------------- |
-| argument | `string` | argument of a command                       |
-| value    | `string` | typed value of an argument, to autocomplete |
+| Param    | Type     | Description                                             |
+| -------- | -------- | ------------------------------------------------------- |
+| input    | `string` | user-input from the terminal                            |
+| commands | `any[]`  | an array of commands with a type that extends `Command` |
 
 #### `findCommand<C>(value, commands): C | Command`
 
 Try to find the command from user-input command-name. You can use an
 extended command interface by passing it as a generic.
-
-> It can be used with the `autocompleteArgumentValue` since you need to pass a recognized `Command` object.
 
 **Kind**: global function  
 
@@ -178,14 +177,15 @@ interface ParsedArgument {
    * - `ARG_VALUE` is the value of an argument found by its `ARG_NAME`.
    */
   type: 'CMD_VALUE' | 'ARG_NAME' | 'ARG_VALUE';
-  /** Reflect the original `Command` or `CommandArgument` */
-  reflect: Command | CommandArgument;
+  /**
+   * Reflect the original `Command` or `CommandArgument`, can be undefined when
+   * not able to recognize a command or argument being typed.
+   */
+  reflect?: Command | CommandArgument;
   /** Original value (from the input) of the argument */
   value: string;
   /** If the argument value is valid and matches */
   isValid: boolean;
-  /** Array of error messages explaining why the value is invalid */
-  errors?: string;
 }
 ```
 
