@@ -4,11 +4,11 @@
 [![CircleCI](https://circleci.com/gh/TotomInc/command-parser/tree/master.svg?style=shield)](https://circleci.com/gh/TotomInc/command-parser/tree/master)
 [![codecov](https://codecov.io/gh/TotomInc/command-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/TotomInc/command-parser)
 
-> A modulable UNIX terminal command-parser, originally created for SkidInc incremental-game.
+> A modulable UNIX terminal command-parser, originally created for skid-inc incremental-game.
 
 ## Usage
 
-1. install using npm or Yarn
+1. install using `npm` or `yarn`
 
 ```bash
 npm i @totominc/command-parser --save
@@ -18,10 +18,49 @@ yarn add @totominc/command-parser
 
 2. import in your code, see [the API](#API) for exported functions
 
-```typescript
-import parse from '@totominc/command-parser';
+### Basic usage using the `parser` function
 
-// your array of commands which is needed everytime you want to parse an input.
+```typescript
+// make sure to take a look at `public/index.ts` for more examples.
+
+// the parser function is the default export of the module.
+import parse, { Command } from '@totominc/command-parser';
+
+// your array of commands which is needed everytime you want to parse or
+// autocomplete a user-input.
+const commands: Command[] = [{
+  name: 'ssh',
+  description: 'connect to another server which supports the SSH protocol',
+  requireValue: true,
+  // a command value which doesn't include the `@` character will be invalid.
+  validation: (value) => value.indexOf('@') > -1,
+  arguments: [
+    {
+      name: '--identity_file',
+      alias: '-i',
+      requireValue: true,
+      // `--identity_file` argument value which doesn't include the `.ssh`
+      // string will be invalid.
+      validation: (value) => value.indexOf('.ssh') > -1,
+    },
+  ],
+}];
+
+// parse a user-input command and verify if it's a valid command with valid
+// arguments.
+const { command, parsedArgs, valid } = parse<Command>(
+  'ssh -i ~/.ssh/rpi pi@home',
+  commands,
+);
+
+console.log(command, parsedArgs, valid);
+```
+
+### Dynamically autocomplete a user input
+
+```typescript
+import { autocomplete, Command } from '@totominc/command-parser';
+
 const commands: Command[] = [{
   name: 'ssh',
   description: 'connect to another server which supports the SSH protocol',
@@ -29,22 +68,23 @@ const commands: Command[] = [{
   validation: (value) => value.indexOf('@') > -1,
   arguments: [
     {
-      name: '--identity_file',
-      alias: '-i',
+      name: '--login_name',
+      alias: '-l',
       requireValue: true,
-      validation: (value) => value.indexOf('.ssh') > -1,
+      // it is possible to dynamically autocomplete the `--login_name` argument
+      // value since it's possible to predicate the value with the
+      // `possibilities` array (unlike the `validation` function).
+      possibilities: ['root', 'admin', 'admin-bis'],
     },
   ],
 }];
 
-// parse a user-input command and verify if it's a valid command with valid
-// arguments against the commands argument parameter.
-const { command, parsedArgs, valid } = parse<Command>(
-  'ssh -i ~/.ssh/rpi pi@home',
-  commands,
-);
+// autocomplete the `--login_name` argument value against the array of
+// commands.
+const suggestions = autocomplete('ssh -l ad', commands);
 
-console.log(command, parsedArgs, valid);
+// `['admin', 'admin-bis']`
+console.log(suggestions);
 ```
 
 ## API
