@@ -1,4 +1,4 @@
-import { Command, CommandArgument } from './models/command.model';
+import { Command, CommandArgument, ParsedArgument } from './models/command.model';
 import { autocompleteArgumentName, autocompleteArgumentValue } from './argument/autocomplete-argument';
 import { autocompleteCommandName, autocompleteCommandValue } from './command/autocomplete-command';
 import normalize from './normalize';
@@ -15,7 +15,7 @@ import parse from './parser';
  */
 function autocomplete<C extends Command>(input: string, commands: C[]): string[] {
   const { command, parsedArgs } = parse(input, commands);
-  const lastParsedArg = parsedArgs[parsedArgs.length - 1];
+  const lastParsedArg = parsedArgs[parsedArgs.length - 1] as (ParsedArgument | undefined);
   const cleanedInput = normalize(input).split(' ');
   const lastInputValue = cleanedInput[cleanedInput.length - 1];
 
@@ -32,7 +32,7 @@ function autocomplete<C extends Command>(input: string, commands: C[]): string[]
     suggested = autocompleteArgumentName(command, lastInputValue);
   }
   // If an argument requires a value, autocomplete the argument value
-  else if (lastParsedArg.type === 'ARG_NAME') {
+  else if (lastParsedArg && lastParsedArg.type === 'ARG_NAME') {
     suggested = autocompleteArgumentValue(lastParsedArg.reflect as CommandArgument, lastInputValue);
   }
   // If there is a command, autocomplete the command value
