@@ -6,6 +6,8 @@
 
 > A modulable UNIX terminal command-parser, originally created for skid-inc incremental-game.
 
+⚠️ this is an experimental library, getting new features and bug-fixes as I encounter them on skid-inc.
+
 ## Usage
 
 1. install using `npm` or `yarn`
