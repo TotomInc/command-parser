@@ -31,8 +31,9 @@ function autocomplete<C extends Command>(input: string, commands: C[]): string[]
   else if (lastInputValue.startsWith('-')) {
     suggested = autocompleteArgumentName(command, lastInputValue);
   }
-  // If an argument requires a value, autocomplete the argument value
-  else if (lastParsedArg && lastParsedArg.type === 'ARG_NAME') {
+  // If an argument requires a value or the value is being typed, autocomplete
+  // the argument value
+  else if (lastParsedArg && (lastParsedArg.type === 'ARG_NAME' || lastParsedArg.type === 'ARG_VALUE')) {
     suggested = autocompleteArgumentValue(lastParsedArg.reflect as CommandArgument, lastInputValue);
   }
   // If there is a command, autocomplete the command value

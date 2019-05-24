@@ -32,3 +32,15 @@ test('it should return multiple suggestions for command argument names', async (
 
   t.deepEqual(suggestions, ['--identity_file', '--login_name', '--force']);
 });
+
+test('it should return a suggestion for an argument value being typed', async (t) => {
+  const suggestions = autocomplete('ssh --login_name totom', commands);
+
+  t.deepEqual(suggestions, ['totominc']);
+});
+
+test('it should return a suggestion for a command value', async (t) => {
+  const suggestions = autocomplete('say hel', commands);
+
+  t.deepEqual(suggestions, ['hello']);
+});
