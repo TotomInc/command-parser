@@ -1,5 +1,5 @@
 import { ParsedArgument, Command } from './models/command.model';
-import normalize from './normalize';
+import normalize, { normalizeWithoutLowercase } from './normalize';
 import findCommand from './command/find-command';
 import findArgument from './argument/find-argument';
 import validateArgument from './argument/validate-argument';
@@ -21,8 +21,12 @@ function parse<C extends Command>(
   parsedArgs: ParsedArgument[];
   valid: boolean;
 } {
+  const originalsSplitted = normalizeWithoutLowercase(input).split(' ');
   const splitted = normalize(input).split(' ');
+
   const command = findCommand<C>(splitted[0], commands);
+
+  const originalArgs = originalsSplitted.splice(1, originalsSplitted.length);
   const args = splitted.splice(1, splitted.length);
 
   const parsedArgs: ParsedArgument[] = [];
@@ -34,6 +38,7 @@ function parse<C extends Command>(
 
     for (let i = 0; i < args.length; i += 1) {
       const arg = args[i];
+      const originalArg = originalArgs[i];
 
       // Try to detect an argument (and its value if it have one)
       if (arg.startsWith('-')) {
@@ -44,7 +49,7 @@ function parse<C extends Command>(
           parsedArgs.push({
             type: 'ARG_NAME',
             reflect: parsedArg,
-            value: arg,
+            value: originalArg,
             isValid: true,
           });
 
@@ -68,7 +73,7 @@ function parse<C extends Command>(
         else {
           parsedArgs.push({
             type: 'ARG_NAME',
-            value: arg,
+            value: originalArg,
             isValid: false,
           });
         }
@@ -80,7 +85,7 @@ function parse<C extends Command>(
         parsedArgs.push({
           type: 'CMD_VALUE',
           reflect: command,
-          value: arg,
+          value: originalArg,
           isValid: commandValueValid,
         });
 
